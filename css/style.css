@@ -1,0 +1,182 @@
+:root{
+    --dark-background-color: #333;
+    --light-background-color: #f5f5f5;
+    --dark-foreground-color: #000;
+    --light-foreground-color: #fff;
+    --grey-foreground-color: #ccc;
+    --accent-color: #6D0509;
+    --general-padding: 2em;
+    --general-margin: 1em;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    color: var(--dark-foreground-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover{
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/*** koko dokumentin sisältö ***/
+div#container {
+    display: flex;
+    flex-direction: column;
+
+}
+
+div#content {
+    display: inherit;
+}
+
+/*** vw= prosentteina viewportin koko leveydestä***/
+div#content section {
+    width: 80vw;
+    display: inherit;
+    flex-direction: row;
+    flex-wrap: wrap; /***-> artikkelit rivittyvät mikäli ei mahu rinnakkain***/
+    border-right: 1px solid var(--dark-foreground-color);
+    margin: calc(var(--general-margin) * 2) 0 var(--general-margin) 0;
+}
+
+div#content aside {
+    width: 20vw;
+}
+
+/***artikkelin leveys siten että kolme rinnakkain***/
+article{
+    flex: 33.33%;
+}
+
+article div {
+    margin: var(--general-margin);
+    border: 1px solid var(--grey-foreground-color);
+}
+
+article h3 {
+    margin: var(--general-margin);
+}
+
+article p {
+    margin: var(--general-margin);
+    line-height: 1.5;
+}
+
+/***kuvista skaalautuvia***/
+article div img {
+    height: 500px; /***-> kuvan korkeus pikseleinä jotta kaikki kuvat samankorkuisia***/
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+     /*** koska kuvien kuvasuhde vaihtelee, asetataan fit ja position jolloin kuvan "keskiosa" näytetään mikäli kuva ei mahdu sille varatulle alueella; vältetään myös kuvan "venyminen"***/
+}
+
+/*** Nyt sisältöalueella näytetään 12 kuvaa allekkain siten, että jokaisella rivillä 
+on kolme kuvaa (width oli n. 33% ja flex-wrap oli wrap). Kuvat skaalautuvat näytön 
+koon mukaan ja mikäli kuva ei mahdu varattuun tilaan, näytetään kuvan keskiosaa.***/
+
+/***Header käyttää asemointiin myös flexboxia. Tällöin sisältö on helppo keskittää vaaka- ja pystysuorassa justify-content- ja align-items-määritysten avulla.***/
+header {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+header h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/*** MENUVALIKKO ***/
+
+/*** flexbox jälleen -> saadaan asemoitua rivit pystysuunnassa keskelle ***/
+nav {
+    display: inherit;
+    align-items: center; /*** oletussuunta flexillä row eli rivittäin -> "ensimmäinen akseli" vaakasuora (määrittely justify-content), tämän vuoksi keskittäminen "toisen" akselin suunnassa align-items***/
+    border-top: 1 px solid var(--dark-foreground-color);
+    border-bottom: 1px solid var(--dark-foreground-color);
+    height: 40px;
+}
+
+/*** elementeille tyhjää tilaa väliin margin ja padding sekä vakioleveys ***/
+nav ul {
+    padding-left: calc(var(--general-padding) / 2);
+}
+
+nav ul li {
+    display: inline-block; /***-> asettaa listan rivit vierekkäin (koska oletuksena listan rivit allekkain) ***/
+    width: 5em;
+    margin-right: var(--general-margin);
+}
+
+/*** #Container-diville asetetaan hieman marginaalia, jotta käyttöliittymässä olisi ”tyhjää 
+tilaa” (whitespace). Yleensäkään käyttöliittymän elementtejä ei kannata asemoida liian 
+lähelle toisiaan, jotta käyttöliittymän luettavuus on parempi ja muutenkin 
+miellyttävämpi silmälle. ***/
+
+div#container {
+    display: flex;
+    flex-direction: column;
+    margin: var(--general-margin);
+}
+
+aside {
+    padding: var(--general-padding);
+    padding-top: calc(var(--general-padding) * 1.5); /*** css- kielessä voidaan tehdä laskutoimituksia calc-funktion avulla. ***/
+}
+
+footer {
+    background-color: var(--dark-background-color);
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+}
+
+footer p {
+    color: var(--light-foreground-color);
+}
+
+
+@media only screen and (max-width: 1200px) {
+    div#content {
+        flex-direction: column;
+    }
+
+    div#content section {
+        width: 100vw;
+        flex-direction: row;
+    }
+
+    div#content aside {
+        width: 100vw;
+        padding-top: var(--general-padding);
+        padding-left: calc(var(--general-padding) / 2);
+    }
+
+    article {
+        flex: 50%;
+    }
+
+    article div img {
+        height: 350px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    div#content section {
+        flex-direction: column;
+    }
+}
+
